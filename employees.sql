@@ -24,3 +24,12 @@ AS BEGIN
     WHERE employeeID = @employeeID
   END
 end
+
+CREATE TABLE votecount(employeeID int, years text)
+
+CREATE OR REPLACE FUNCTION getvote(out int, out text) RETURNS SETOF RECORDS as
+$$
+   select ((select count(*) from topemployee)*count(years)) from votecount;
+
+$$
+ language 'sql';
