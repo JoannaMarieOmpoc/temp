@@ -25,7 +25,7 @@ AS BEGIN
   END
 end
 
-CREATE TABLE votecount(employeeID int, years text)
+CREATE TABLE votecount(employeeID int PRIMARY KEY, years text)
 
 CREATE OR REPLACE FUNCTION getvote(out int, out text) RETURNS SETOF RECORDS as
 $$
@@ -33,3 +33,10 @@ $$
 
 $$
  language 'sql';
+
+AS BEGIN
+  IF @StatementType = 'Insert'
+  BEGIN
+  insert into votecount(employeeID, years) values(@employeeID, @years)
+  END
+end
