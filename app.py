@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request, render_template
 from flask_httpauth import HTTPBasicAuth
-import flask
+from model import DBconn
+import sys, flask
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
@@ -17,9 +18,23 @@ def updateemployee(employeeID, topemployeeID, employeename, gender, salary, addr
 def viewemployee():
     res = spcall('employee', ())
 
-@app.route('/employee', methods=['GET'])
-def viewemployee():
+@app.route('/votecount', methods=['GET'])
+def voteemployee():
     res = spcall('votecount', ())
+
+@app.route('/count', methods=['GET'])
+def countvote():
+    resf = spcall('votecount', ())
+    return jsonify({'vote': vote, 'status' : 'ok'})
+
+@app.after_request
+def add_cors(resp):
+    resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
+    resp.headers['Access-Control-Allow-Credentials'] = True
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
+    resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
+                                                                             'Authorization')
+
 
 if __name__ == "__main__":
     app.run()
