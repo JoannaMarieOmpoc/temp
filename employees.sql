@@ -37,7 +37,18 @@ $$
 AS BEGIN
   IF @StatementType = 'Insert'
   BEGIN
-  insert into votecount(employeeID, votes) values(@employeeID, @votes)
+    insert into votecount(employeeID, votes) values(@employeeID, @votes)
+
+    UPDATE votecount
+    SET
+      votes = votes+1
+    WHERE employeeID = @employeeID
+
+    UPDATE votecount
+    SET
+      votes = votes-1
+    WHERE employeeID = @employeeID
+  END
   END
 end
 
