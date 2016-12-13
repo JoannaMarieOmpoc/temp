@@ -29,7 +29,7 @@ CREATE TABLE votecount(employeeID int PRIMARY KEY, years text)
 
 CREATE OR REPLACE FUNCTION getvote(out int, out text) RETURNS SETOF RECORDS as
 $$
-   select ((select count(*) from topemployee)*count(years)) from votecount;
+   select ((select count(topemployee.employeeID) from topemployee)*count(years)) from votecount;
 
 $$
  language 'sql';
