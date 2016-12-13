@@ -20,7 +20,7 @@ def viewemployee():
 
 @app.route('/votecount', methods=['GET'])
 def voteemployee():
-    res = spcall('votecount', ())
+    res = spcall('getvote', ())
 
 @app.route('/count', methods=['GET'])
 def countvote():
