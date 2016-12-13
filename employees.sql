@@ -25,9 +25,9 @@ AS BEGIN
   END
 end
 
-CREATE TABLE votecount(employeeID int PRIMARY KEY, votes text)
+CREATE TABLE votecount(employeeID int PRIMARY KEY, votes int)
 
-CREATE OR REPLACE FUNCTION getvote(out int, out text) RETURNS SETOF RECORDS as
+CREATE OR REPLACE FUNCTION getvote(out int, out int) RETURNS SETOF RECORDS as
 $$
    select ((select count(topemployee.employeeID) from topemployee)*count(votes)) from votecount;
 
@@ -51,4 +51,13 @@ AS BEGIN
   END
   END
 end
+
+CREATE TABLE entries(
+  employeeID int PRIMARY KEY,
+  topemployeeID int,
+  employeename text,
+  gender text,
+  salary text,
+  address text
+  )
 
