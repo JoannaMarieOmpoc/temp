@@ -9,6 +9,10 @@ auth = HTTPBasicAuth()
 def insertemployee(employeeID, employeename, gender, salary, address):
     res = spcall('Insert', (employeeID, employeename, gender, salary, address), True)
 
+@app.route('/employee/<int:employeeID>/<string:employeename>/<string:gender>/<string:salary>/<string:address>', methods=['POST'])
+def updateemployee(employeeID, employeename, gender, salary, address):
+    res = spcall('Update', (employeeID, employeename, gender, salary, address), True)
+
 
 if __name__ == "__main__":
     app.run()
