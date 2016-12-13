@@ -25,11 +25,11 @@ AS BEGIN
   END
 end
 
-CREATE TABLE votecount(employeeID int PRIMARY KEY, years text)
+CREATE TABLE votecount(employeeID int PRIMARY KEY, votes text)
 
 CREATE OR REPLACE FUNCTION getvote(out int, out text) RETURNS SETOF RECORDS as
 $$
-   select ((select count(topemployee.employeeID) from topemployee)*count(years)) from votecount;
+   select ((select count(topemployee.employeeID) from topemployee)*count(votes)) from votecount;
 
 $$
  language 'sql';
@@ -37,6 +37,7 @@ $$
 AS BEGIN
   IF @StatementType = 'Insert'
   BEGIN
-  insert into votecount(employeeID, years) values(@employeeID, @years)
+  insert into votecount(employeeID, votes) values(@employeeID, @votes)
   END
 end
+
